@@ -1,0 +1,9 @@
+{
+  "nome": "Levisgton",
+  "idade": 30,
+  "habilidades": {
+    "frontend": ["HTML", "CSS", "JS"],
+    "backend": ["Python", "C#", "Java"]
+  },
+  "ativo": true
+}

@@ -2,465 +2,406 @@
 
 A linguagem JavaScript começou como um script de 10 dias para fazer botões piscarem em navegadores e agora... bem, agora ela domina o mundo. Do seu celular à sua geladeira, o JS está lá, silenciosamente julgando suas escolhas de lanches.
 
-Prepare-se para uma jornada divertida através de lógica, esquisitices e um poder imenso. Vamos decifrar essa códigos juntos!
+Prepare-se para uma jornada divertida através de lógica, esquisitices e um poder imenso. Vamos decifrar esses códigos juntos!
 
 ---
 
-## 1. O que é JavaScript
-JavaScript é a linguagem padrão para lógica em páginas web, também usada em backend (Node.js), mobile, desktop e IoT. Multiparadigma: suporta programação imperativa, funcional e orientada a objetos. Hoje se escreve JS moderno (ES6+), evitando `var` e usando módulos, funções puras e padrões reusáveis.
+## 1. O que é JavaScript?
+JavaScript é a linguagem de programação que dá vida à web. Originalmente para navegadores, hoje ela está em todos os lugares: servidores (Node.js), aplicativos de celular, e até em dispositivos inteligentes.
 
-## 2. Ambiente rápido
-Browser (Console DevTools) ou Node.js:  
+É uma linguagem **multiparadigma**, ou seja, flexível. Você pode escrever código de forma direta (imperativa), focada em transformações de dados (funcional) ou organizando tudo em "caixas" lógicas (orientada a objetos). O JavaScript moderno (ES6+) incentiva boas práticas, como usar `let`/`const` em vez de `var`, e criar código modular e reutilizável.
+
+## 2. Ambiente Rápido para Testes
+Você não precisa de nada complexo para começar. Use o console do seu navegador (F12) ou instale o Node.js e digite no seu terminal:
 ```bash
 node
 ```
-Digite código e teste imediatamente.
+Isso abre um ambiente interativo (REPL) onde você pode digitar código JS e ver o resultado na hora.
 
 ---
 
-## 3. Tipos de Dados (Primitivos e Referência)
+## 3. Tipos de Dados: Os Blocos de Construção
 
-### 3.1 Primitivos
-- string
-- number (inteiro e ponto flutuante)
-- bigint
-- boolean
-- null (ausência intencional)
-- undefined (não definido)
-- symbol (identificador único)
+### 3.1 Tipos Primitivos (Valores Imutáveis)
+Pense neles como os "átomos" da informação: valores únicos que não podem ser alterados.
 
-Exemplos:
+- `string`: Texto, sempre entre aspas. Ex: `"Olá, mundo!"`
+- `number`: Qualquer número, inteiro ou com casas decimais. Ex: `42`, `3.14`
+- `bigint`: Para números inteiros gigantescos. Ex: `9007199254740993n`
+- `boolean`: Verdadeiro (`true`) ou falso (`false`).
+- `null`: Representa a ausência intencional de um valor. É um "nada" definido por você.
+- `undefined`: Uma variável que foi declarada, mas ainda não recebeu um valor.
+- `symbol`: Um identificador único, útil para chaves de objeto especiais.
+
 ```js
 const nome = "Ana";          // string
 const idade = 28;            // number
-const saldo = 1234.75;       // number
-const grande = 9007199254740993n; // bigint
 const ativo = true;          // boolean
-const nada = null;           // null
-let naoDefinido;             // undefined
-const chave = Symbol("id");  // symbol
+let itemSelecionado = null;  // null (intencionalmente vazio)
+let preco;                   // undefined (ainda não definido)
 ```
 
-### 3.2 Objetos (referência)
-Arrays, funções, datas e objetos literais:
+### 3.2 Objetos (Valores de Referência)
+Objetos são como "caixas" que agrupam dados. Eles são mutáveis e, quando você copia um objeto, na verdade está copiando a "referência" (o endereço) para a mesma caixa.
+
 ```js
+// Um objeto literal que descreve uma pessoa
 const pessoa = { nome: "Ana", idade: 28 };
+
+// Um array (um tipo especial de objeto para listas)
 const numeros = [1, 2, 3];
+
+// Uma função (também é um objeto em JS!)
 function somar(a, b) { return a + b; }
-```
-Objetos são mutáveis por referência:
-```js
-const a = { x: 1 };
-const b = a;
-b.x = 99;
-console.log(a.x); // 99 (mesmo objeto)
+
+// Cuidado com a referência!
+const objA = { valor: 1 };
+const objB = objA; // objB aponta para o MESMO objeto que objA
+
+objB.valor = 99;
+console.log(objA.valor); // Saída: 99 (alterar objB afetou objA)
 ```
 
-### 3.3 Checando tipos
+### 3.3 Verificando Tipos
 ```js
-typeof 10;              // "number"
-typeof null;            // "object" (peculiaridade histórica)
-Array.isArray([]);      // true
+typeof "Olá";       // "string"
+typeof 10;          // "number"
+typeof false;       // "boolean"
+Array.isArray([]);  // true (forma correta de checar arrays)
+
+// Uma peculiaridade histórica do JS:
+typeof null;        // "object" (cuidado, isso confunde!)
 ```
 
 ---
 
-## 4. Conversões
-Explícitas:
+## 4. Conversão de Tipos (Coerção)
+Às vezes, você precisa converter um tipo em outro.
+
+**Conversão Explícita (Você no controle):**
 ```js
-Number("42");    // 42
-String(10);      // "10"
-Boolean("");     // false
-Boolean("ok");   // true
+Number("42");    // Converte string para número -> 42
+String(10);      // Converte número para string -> "10"
+Boolean("");     // Strings vazias são 'falsy' -> false
+Boolean("ok");   // Qualquer outra string é 'truthy' -> true
 ```
-Curto-circuito e coalescência:
-```js
-const porta = process.env.PORT || 3000;     // usa 3000 se valor "falsy"
-const porta2 = process.env.PORT ?? 3000;    // usa 3000 só se null/undefined
-```
+**Dica:** Evite a conversão implícita (automática), que pode gerar bugs. Por exemplo, `1 + "2"` resulta em `"12"`, não `3`.
 
 ---
 
-## 5. Operadores
+## 5. Operadores Essenciais
 
 ### 5.1 Aritméticos
-`+ - * / % **`
+`+` (soma), `-` (subtração), `*` (multiplicação), `/` (divisão), `%` (resto da divisão), `**` (potência).
 ```js
-2 ** 3; // 8 potenciação
+2 ** 3; // 2 elevado a 3 = 8
+10 % 3; // Resto de 10 dividido por 3 = 1
 ```
 
 ### 5.2 Atribuição
-`= += -= *= /= ??= ||= &&=`
+`=` (atribui valor), `+=` (soma e atribui), `-=` (subtrai e atribui), etc.
 ```js
-let x = 0;
-x += 5;    // 5
-x ||= 10;  // se falsy vira 10 (não muda porque 5 é truthy)
+let x = 10;
+x += 5; // o mesmo que x = x + 5; agora x é 15
 ```
 
 ### 5.3 Comparação
-`==` (coerção) evite. Use `===`.
+Use sempre a comparação estrita (`===` e `!==`) para evitar surpresas com a conversão automática de tipos.
+
 ```js
-0 == false;  // true (indesejado)
-0 === false; // false
+// Comparação com coerção (EVITE)
+0 == false;  // true (ruim, pois os tipos são diferentes)
+
+// Comparação estrita (PREFIRA)
+0 === false; // false (correto, pois um é number e outro é boolean)
+10 === 10;   // true
 ```
 
-### 5.4 Lógicos
-`&&` (e), `||` (ou), `!` (nega)
-Atalhos modernos:
+### 5.4 Lógicos e Atalhos Modernos
+`&&` (E), `||` (OU), `!` (NÃO).
+
 ```js
+// Optional Chaining (?.) - Acessa propriedades de forma segura
 const user = { perfil: { nome: "Ana" } };
-const nome = user?.perfil?.nome;      // optional chaining
-const idade = user?.idade ?? 0;       // nullish coalescing
+const nome = user?.perfil?.nome; // "Ana"
+const cep = user?.endereco?.cep; // undefined (não quebra o código)
+
+// Nullish Coalescing (??) - Fornece um valor padrão APENAS para null ou undefined
+const idade = user?.idade ?? 18; // Se user.idade for null/undefined, usa 18
 ```
 
-### 5.5 Desestruturação / Spread / Rest
+### 5.5 Desestruturação, Spread e Rest
+Técnicas poderosas para trabalhar com objetos e arrays de forma concisa.
+
 ```js
-const livro = { titulo: "JS", ano: 2024 };
-const { titulo, ano: publicado } = livro; // renomeando
+// Desestruturação: "desempacota" valores de objetos ou arrays
+const livro = { titulo: "JS Moderno", ano: 2024 };
+const { titulo, ano: anoDePublicacao } = livro; // Pega 'titulo' e renomeia 'ano'
+
 const cores = ["azul", "verde", "vermelho"];
-const [primeira, , terceira] = cores;
+const [primeiraCor, , terceiraCor] = cores; // Pega o primeiro e o terceiro item
 
-const base = { a: 1, b: 2 };
-const extra = { b: 9, c: 3 };
-const combinado = { ...base, ...extra }; // { a:1, b:9, c:3 }
+// Spread Operator (...): "espalha" elementos de um array ou propriedades de um objeto
+const nums1 = [1, 2];
+const nums2 = [3, 4];
+const todosOsNumeros = [...nums1, ...nums2]; // [1, 2, 3, 4]
 
-function somaTudo(...nums) {
-    return nums.reduce((acc, n) => acc + n, 0);
+// Rest Parameters (...): agrupa múltiplos argumentos de uma função em um array
+function somaTudo(...numeros) {
+    return numeros.reduce((total, num) => total + num, 0);
 }
-somaTudo(1,2,3); // 6
+somaTudo(1, 2, 3, 4); // 10
 ```
 
 ---
 
 ## 6. Estruturas de Controle
 
-### 6.1 if / else
+### 6.1 Condicionais: `if / else`
+Para tomar decisões no código.
 ```js
 const nota = 85;
 if (nota >= 90) {
-    console.log("A");
+    console.log("Ótimo (A)");
 } else if (nota >= 80) {
-    console.log("B");
+    console.log("Bom (B)");
 } else {
-    console.log("C");
+    console.log("Precisa melhorar (C)");
 }
 ```
 
-### 6.2 switch
+### 6.2 Condicionais: `switch`
+Uma alternativa ao `if/else` para múltiplos casos baseados em um único valor.
 ```js
-const role = "admin";
-switch (role) {
+const nivelAcesso = "admin";
+switch (nivelAcesso) {
     case "admin":
-        console.log("Acesso total");
+        console.log("Acesso total.");
         break;
     case "user":
-        console.log("Acesso limitado");
+        console.log("Acesso limitado.");
         break;
     default:
-        console.log("Nenhum");
+        console.log("Visitante.");
 }
 ```
 
-### 6.3 Loop for / while
+### 6.3 Laços de Repetição: `for` e `while`
+Para executar um bloco de código várias vezes.
 ```js
+// for: ideal quando você sabe o número de iterações
 for (let i = 0; i < 3; i++) {
-    console.log(i);
+    console.log(`Contando: ${i}`);
 }
 
-let c = 0;
-while (c < 3) {
-    console.log(c);
-    c++;
-}
-```
-
-### 6.4 for...of / for...in
-```js
-for (const cor of ["azul","verde"]) {
-    console.log(cor); // valores
-}
-
-const obj = { a:1, b:2 };
-for (const k in obj) {
-    console.log(k, obj[k]); // chaves
+// while: ideal quando a condição de parada é variável
+let moedas = 5;
+while (moedas > 0) {
+    console.log("Gastou uma moeda.");
+    moedas--;
 }
 ```
 
-### 6.5 Iteração funcional (preferida)
+### 6.4 Laços para Coleções: `for...of` e `for...in`
+- `for...of`: Itera sobre os **valores** de um iterável (como um array). **(Preferido para arrays)**
+- `for...in`: Itera sobre as **chaves** (ou índices) de um objeto.
+
 ```js
-[1,2,3].forEach(n => console.log(n));
-const dobrados = [1,2,3].map(n => n * 2);       // [2,4,6]
-const pares = [1,2,3,4].filter(n => n % 2 === 0); // [2,4]
-const soma = [1,2,3].reduce((acc,n)=>acc+n,0);  // 6
+// for...of para valores
+for (const cor of ["azul", "verde"]) {
+    console.log(cor); // "azul", depois "verde"
+}
+
+// for...in para chaves
+const carro = { marca: "Tesla", modelo: "Model 3" };
+for (const chave in carro) {
+    console.log(`${chave}: ${carro[chave]}`); // "marca: Tesla", "modelo: Model 3"
+}
+```
+
+### 6.5 Iteração Funcional (O jeito moderno)
+Métodos de array que são mais declarativos e evitam mutações.
+
+```js
+const numeros = [1, 2, 3, 4];
+
+// map: transforma cada elemento em um novo valor
+const dobrados = numeros.map(n => n * 2); // [2, 4, 6, 8]
+
+// filter: cria um novo array com elementos que passam em um teste
+const pares = numeros.filter(n => n % 2 === 0); // [2, 4]
+
+// reduce: reduz o array a um único valor (ex: uma soma)
+const soma = numeros.reduce((acumulador, n) => acumulador + n, 0); // 10
 ```
 
 ---
 
-## 7. Funções
+## 7. Funções: O Coração da Lógica
 
-### 7.1 Declaração vs Expressão
+### 7.1 Declaração vs. Expressão
 ```js
-function soma(a,b){ return a+b; }         // hoisted
-const mult = function(a,b){ return a*b; } // expressão
-```
-
-### 7.2 Arrow Functions
-Sintaxe curta, não liga this próprio.
-```js
-const quadrado = n => n * n;
-const somaLista = (a, b, ...rest) => rest.reduce((acc,n)=>acc+n, a+b);
-```
-
-### 7.3 Parâmetro padrão
-```js
-function conectar(host="localhost", porta=5432) {
-    console.log(host, porta);
+// Declaração de Função (sofre "hoisting", pode ser chamada antes de ser definida)
+function soma(a, b) {
+  return a + b;
 }
-```
 
-### 7.4 Funções puras e imutabilidade
-```js
-const adicionarUsuario = (lista, usuario) =>
-    [...lista, { ...usuario }]; // não muta a original
-```
-
----
-
-## 8. Escopo
-
-- Escopo de bloco: `let`, `const`
-- Escopo de função: parâmetros e variáveis internas
-- Global: evitar poluição
-
-```js
-let xGlobal = 10;
-{
-    const interno = 5;
-    let outro = 7;
-    // interno e outro existem só aqui
-}
-// acessar interno => erro
-```
-
-`var` ignora bloco (exceto função) — evite.
-
----
-
-## 9. Closures
-
-Closure é a função que lembra o ambiente léxico onde foi criada.
-
-```js
-function contador(inicial = 0) {
-    let valor = inicial;
-    return function proximo() {
-        valor++;
-        return valor;
-    };
-}
-const c1 = contador(10);
-c1(); // 11
-c1(); // 12
-const c2 = contador(); 
-c2(); // 1 (independente)
-```
-Explicação: `proximo` mantém acesso à variável `valor` mesmo após `contador` terminar.
-
-Outro exemplo prático (cache):
-```js
-function memoizar(fn) {
-    const cache = new Map();
-    return arg => {
-        if (cache.has(arg)) return cache.get(arg);
-        const r = fn(arg);
-        cache.set(arg, r);
-        return r;
-    };
-}
-const lento = n => {
-    console.log("computando...");
-    return n * 2;
+// Expressão de Função (não sofre "hoisting")
+const multiplica = function(a, b) {
+  return a * b;
 };
-const rapido = memoizar(lento);
-rapido(5); // computando... 10
-rapido(5); // 10 (cache, sem log)
+```
+
+### 7.2 Arrow Functions (`=>`)
+Uma sintaxe mais curta e concisa, muito comum no JS moderno.
+```js
+// Função tradicional
+const quadrado_tradicional = function(n) {
+    return n * n;
+}
+
+// Arrow function equivalente
+const quadrado_arrow = n => n * n;
+```
+
+### 7.3 Parâmetros Padrão
+Defina valores padrão para os parâmetros de uma função, caso eles não sejam fornecidos.
+```js
+function conectar(host = "localhost", porta = 5432) {
+    console.log(`Conectando em ${host}:${porta}`);
+}
+
+conectar(); // "Conectando em localhost:5432"
+conectar("meu-banco.com"); // "Conectando em meu-banco.com:5432"
+```
+
+### 7.4 Funções Puras e Imutabilidade
+Uma **função pura** é aquela que, para a mesma entrada, sempre produz a mesma saída e não tem efeitos colaterais (não modifica nada fora dela). Isso torna o código mais previsível e fácil de testar.
+
+```js
+// Função impura (muda o array original)
+const adicionarItem_impuro = (lista, item) => {
+    lista.push(item); // Efeito colateral: modifica a lista!
+    return lista;
+}
+
+// Função pura (cria e retorna um novo array)
+const adicionarItem_puro = (lista, item) => {
+    return [...lista, item]; // Não modifica a lista original
+}
 ```
 
 ---
 
-## 10. Módulos (ES Modules)
-Arquivo math.js:
+## 8. Escopo: Onde as Variáveis Vivem
+Escopo define a visibilidade ou acessibilidade de uma variável.
+
+- **Escopo de Bloco (`{...}`):** Variáveis declaradas com `let` e `const` só existem dentro do bloco onde foram criadas.
+- **Escopo de Função:** Variáveis declaradas dentro de uma função só são acessíveis dentro dela.
+- **Escopo Global:** Variáveis declaradas fora de qualquer função. Evite poluir o escopo global.
+
 ```js
-export function soma(a,b){ return a+b; }
-export const PI = 3.14159;
-export default function dobro(n){ return n*2; }
+const xGlobal = 10; // Escopo Global
+
+function testarEscopo() {
+    const yFuncao = 20; // Escopo de Função
+    if (true) {
+        const zBloco = 30; // Escopo de Bloco
+        console.log(xGlobal, yFuncao, zBloco); // 10 20 30
+    }
+    // console.log(zBloco); // Erro! zBloco não existe aqui.
+}
+// console.log(yFuncao); // Erro! yFuncao não existe aqui.
 ```
-Arquivo uso.js:
-```js
-import dobro, { soma, PI } from "./math.js";
-console.log(dobro(4), soma(2,3), PI);
-```
+**Regra de ouro:** Use `const` por padrão. Se precisar reatribuir o valor, use `let`. **Evite `var`**, pois seu escopo é confuso e propenso a erros.
 
 ---
 
-## 11. Promises e Assíncrono
+## 9. Manipulação Moderna de Arrays
+Combine métodos de array para realizar operações complexas de forma elegante.
 
-### 11.1 Promise
 ```js
-function esperar(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-esperar(500).then(()=> console.log("Ok"));
-```
-
-### 11.2 async/await
-```js
-async function fluxo() {
-    console.log("Início");
-    await esperar(300);
-    console.log("Depois");
-}
-fluxo();
-```
-
-### 11.3 fetch (browser / node >=18)
-```js
-async function carregarUsuario(id) {
-    const resp = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-    if (!resp.ok) throw new Error("Falha HTTP");
-    const dados = await resp.json();
-    return dados;
-}
-carregarUsuario(1)
-    .then(u => console.log(u.name))
-    .catch(e => console.error(e.message));
-```
-
-Parallel:
-```js
-const ids = [1,2,3];
-const promessas = ids.map(id => carregarUsuario(id));
-const resultados = await Promise.all(promessas);
-```
-
----
-
-## 12. Manipulação de Arrays moderna
-```js
-const users = [
-    { id:1, ativo:true, nome:"Ana" },
-    { id:2, ativo:false, nome:"Bruno" },
-    { id:3, ativo:true, nome:"Carla" },
+const usuarios = [
+    { id: 1, nome: "Ana", ativo: true },
+    { id: 2, nome: "Bruno", ativo: false },
+    { id: 3, nome: "Carla", ativo: true },
 ];
 
-// achar
-users.find(u => u.id === 2); // { id:2, ... }
+// Encontrar o primeiro usuário que corresponde a uma condição
+const usuarioBruno = usuarios.find(u => u.nome === "Bruno");
 
-// transformar
-const nomesAtivos = users
-    .filter(u => u.ativo)
-    .map(u => u.nome.toUpperCase());
+// Criar uma lista com os nomes dos usuários ativos, em maiúsculas
+const nomesAtivos = usuarios
+    .filter(u => u.ativo) // 1. Filtra apenas os ativos
+    .map(u => u.nome.toUpperCase()); // 2. Transforma o resultado em nomes maiúsculos
 
-// agrupar (reduce)
-const porAtivo = users.reduce((acc,u)=>{
-    const chave = u.ativo ? "ativos" : "inativos";
-    acc[chave].push(u);
-    return acc;
-}, { ativos:[], inativos:[] });
+// Resultado: ["ANA", "CARLA"]
 ```
 
 ---
 
-## 13. Imutabilidade em Objetos
+## 10. Imutabilidade em Objetos
+Para atualizar um objeto sem modificá-lo diretamente (mutação), crie uma cópia com as alterações desejadas usando o operador spread (`...`).
+
 ```js
-const estado = { usuario: { nome:"Ana", pontos:10 } };
+const estadoInicial = { usuario: { nome: "Ana", pontos: 10 }, tema: "claro" };
+
+// Atualizando os pontos do usuário de forma imutável
 const novoEstado = {
-    ...estado,
-    usuario: { ...estado.usuario, pontos: estado.usuario.pontos + 5 }
+    ...estadoInicial, // 1. Copia todas as propriedades do estado antigo
+    usuario: {
+        ...estadoInicial.usuario, // 2. Copia as propriedades do usuário aninhado
+        pontos: estadoInicial.usuario.pontos + 5 // 3. Sobrescreve apenas a propriedade 'pontos'
+    }
 };
+// estadoInicial permanece inalterado.
+// novoEstado é { usuario: { nome: "Ana", pontos: 15 }, tema: "claro" }
 ```
 
 ---
 
-## 14. Tratamento de Erros
+## 11. Tratamento de Erros com `try...catch`
+Código pode falhar. Antecipe e trate os erros de forma graciosa para que sua aplicação não quebre.
+
 ```js
-function dividir(a,b){
-    if (b === 0) throw new Error("Divisão por zero");
+function dividir(a, b) {
+    if (b === 0) {
+        // Lança um erro se a condição for atendida
+        throw new Error("Divisão por zero não é permitida.");
+    }
     return a / b;
 }
+
 try {
-    dividir(4,0);
-} catch(e) {
-    console.error("Erro:", e.message);
+    // Tenta executar o código que pode falhar
+    const resultado = dividir(10, 0);
+    console.log(resultado);
+} catch (erro) {
+    // Captura o erro se ele for lançado
+    console.error("Ocorreu um erro:", erro.message);
 } finally {
-    console.log("Sempre executa");
+    // Este bloco é executado sempre, com ou sem erro.
+    console.log("Operação finalizada.");
 }
 ```
 
 ---
 
-## 15. Boas Práticas Modernas
-- Usar const por padrão; let se reatribuir; evitar var.
-- Funções pequenas e puras.
-- Nomear claramente.
-- Preferir métodos de array a loops manuais quando legível.
-- Tratar erros em async/await com try/catch ou Promise.allSettled.
-- Evitar mutações compartilhadas.
-- Documentar intenção (comentários curtos, código claro).
+## 12. Boas Práticas para um Código Limpo
+- **`const` > `let` > `var`:** Use `const` sempre que possível. Evite `var`.
+- **Funções Pequenas e Puras:** Crie funções que façam uma única coisa e evitem efeitos colaterais.
+- **Nomes Claros:** Nomeie variáveis e funções de forma descritiva. `usuariosAtivos` é melhor que `ua`.
+- **Prefira Métodos Funcionais:** Use `.map`, `.filter`, `.reduce` em vez de laços `for` quando o código ficar mais legível.
+- **Imutabilidade:** Não modifique dados diretamente. Crie cópias com as alterações.
+- **Comente a Intenção:** Seu código deve dizer *o que* faz. Comentários devem dizer *por que* faz.
 
 ---
 
-## 16. Mini Projeto Integrado
+## 13. Próximos Passos na sua Jornada
+- **DOM e Eventos:** Aprenda a manipular HTML e responder a ações do usuário.
+- **Assincronicidade:** Entenda como lidar com operações que levam tempo (ex: chamadas de API) com `async/await` e `Promises`.
+- **Testes:** Escreva testes para garantir que seu código funciona como esperado (Jest, Vitest).
+- **Ferramentas Modernas:** Explore bundlers (Vite, Webpack) e transpilers (Babel).
+- **TypeScript:** Adicione tipos estáticos ao seu JavaScript para pegar erros mais cedo e melhorar a organização.
 
-Objetivo: Carregar usuários ativos, normalizar e exibir.
-
-```js
-async function fetchUsuarios() {
-    const r = await fetch("https://jsonplaceholder.typicode.com/users");
-    if (!r.ok) throw new Error("Falha ao buscar");
-    return r.json();
-}
-
-function normalizar(users) {
-    return users.map(u => ({
-        id: u.id,
-        nome: u.name,
-        email: u.email.toLowerCase(),
-        cidade: u.address?.city
-    }));
-}
-
-function filtrarPorNome(users, termo) {
-    const t = termo.toLowerCase();
-    return users.filter(u => u.nome.toLowerCase().includes(t));
-}
-
-async function main() {
-    try {
-        const brutos = await fetchUsuarios();
-        const norm = normalizar(brutos);
-        const filtrados = filtrarPorNome(norm, "Lea");
-        console.log(filtrados);
-    } catch(e) {
-        console.error("Erro no fluxo:", e.message);
-    }
-}
-
-main();
-```
-Explicação rápida:
-- fetchUsuarios: busca e retorna JSON.
-- normalizar: cria um novo array transformado (não muta original).
-- filtrarPorNome: reutilizável.
-- main: orquestra com async/await e trata erros.
-
----
-
-## 17. Próximos Passos
-- DOM e eventos
-- Testes (Jest / Vitest)
-- Bundlers (Vite / Webpack)
-- TypeScript
-- Performance e profiling
-
-Resumo: Você viu bases sólidas: tipos, operadores, controle, funções, escopo, closures, módulos e assíncrono. Pratique escrevendo pequenos utilitários e testando tudo no console.
+**Resumo:** Você viu as bases sólidas do JavaScript moderno. O segredo agora é praticar. Crie pequenos projetos, resolva desafios e, o mais importante, divirta-se!
