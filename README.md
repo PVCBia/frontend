@@ -1,6 +1,6 @@
-# 🚀 Desenvolvimento de Sistemas Web com React (Frontend Moderno)
+# Desenvolvimento de Sistemas Web com React
 
-Bem-vindo ao curso de **Desenvolvimento de Sistemas Web com React**! Ao longo de 6 meses, você vai dominar as principais tecnologias e práticas do desenvolvimento frontend moderno, com foco em **HTML5**, **CSS3/SASS**, **JavaScript ES6+**, **React**, **TypeScript**, **UX Design**, **Orientação a Objetos** e **Web Services (Client Side)**.
+Bem-vindo ao curso de **Desenvolvimento de Sistemas Web com React**! Aqui é a intenção é de se dominar as principais tecnologias e práticas do desenvolvimento frontend moderno, com foco em **HTML5**, **CSS3/SASS**, **JavaScript ES6+**, **React**, **TypeScript**, **UX Design**, **Orientação a Objetos** e **Web Services (Client Side)**.
 
 ---
 
