@@ -8,12 +8,6 @@ Bem-vindo ao curso de **Desenvolvimento de Sistemas Web com React**! Aqui é a i
 
 Durante o curso, você desenvolverá miniapps para praticar os conceitos fundamentais:
 
-### 🔹 JavaScript Puro – Lista de Tarefas (TODOs)
-
-- Manipulação do DOM
-- Validação de formulários
-- Armazenamento em memória e localStorage
-
 ### 🔸 React – Catálogo de Livros com Favoritos
 
 - Listagem com filtros
@@ -64,7 +58,7 @@ Durante o curso, você desenvolverá miniapps para praticar os conceitos fundame
 - Props, estado e ciclo de vida com Hooks
 - React Router para navegação
 - Context API para gerenciamento de estado global
-- Integração com APIs usando Axios
+- Integração com APIs usando Fetch API
 
 ### 🧩 TypeScript e Orientação a Objetos (21h)
 
